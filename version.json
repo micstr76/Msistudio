@@ -1,0 +1,5 @@
+{
+  "version": "5.19.0",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/latest",
+  "releaseNotes": "- CLI --sign und --batch Parameter\n- KeyTool GUI fuer Lizenz-Verwaltung\n- .NET 7/8/9 Installationsbedingungen\n- Sprachwechsel DE/EN vollstaendig\n- Trial Restlaufzeit Anzeige\n- Programmordner nach C:\\ProgramData\\MsiStudio"
+}
