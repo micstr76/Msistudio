@@ -71,7 +71,7 @@ Feedback, Featurewünsche oder Beta-Interesse?
   <a href="https://www.linkedin.com/in/michael-strasser-9a9661152/">
     <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin" alt="LinkedIn">
   </a>
-  <a href="https://msistudio.m-strasser.at">
+  <a href="https://m-strasser.at">
     <img src="https://img.shields.io/badge/Beta_vormerken-msistudio.m--strasser.at-orange?style=flat-square&logo=googlechrome" alt="Beta vormerken">
   </a>
   <a href="https://m-strasser.at">
