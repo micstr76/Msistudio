@@ -9,7 +9,7 @@
 
 **Schluss mit XML-Gefummel! Erstelle professionelle MSI-Installer mit einer modernen GUI.**
 
-[**Beta vormerken**](https://msistudio.m-strasser.at) • [**Dokumentation**](https://m-strasser.at) • [**Fehler melden**](https://github.com/micstr76/Msistudio/issues)
+[**Beta vormerken**](https://m-strasser.at) • [**Dokumentation**](https://m-strasser.at) • [**Fehler melden**](https://github.com/micstr76/Msistudio/issues)
 
 </div>
 
@@ -47,13 +47,13 @@ Das Projekt befindet sich aktuell in der **BETA-Phase** und wird aktiv weiterent
 Msistudio entsteht direkt aus der täglichen Praxis im Enterprise-Deployment-Umfeld. Feedback aus der Softwareverteilung ist der wichtigste Treibstoff für dieses Projekt!
 
 > **⚠️ Noch kein öffentlicher Release verfügbar.**
-> Du kannst dich unter [msistudio.m-strasser.at](https://msistudio.m-strasser.at) vormerken lassen — du wirst als Erster informiert sobald die erste Version verfügbar ist.
+> Du kannst dich unter [msistudio.m-strasser.at](https://m-strasser.at) vormerken lassen — du wirst als Erster informiert sobald die erste Version verfügbar ist.
 
 ---
 
 ## 📥 Installation & Quick Start
 
-> **Release noch nicht verfügbar** — trag dich auf der [Projektseite](https://msistudio.m-strasser.at) für die Beta-Warteliste ein.
+> **Release noch nicht verfügbar** — trag dich auf der [Projektseite](https://m-strasser.at) für die Beta-Warteliste ein.
 
 Sobald der Release verfügbar ist:
 
