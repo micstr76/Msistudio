@@ -9,7 +9,7 @@
 
 **Schluss mit XML-Gefummel! Erstelle professionelle MSI-Installer mit einer modernen GUI.**
 
-[**Beta vormerken**](https://m-strasser.at) • [**Dokumentation**](https://m-strasser.at) • [**Fehler melden**](https://github.com/micstr76/Msistudio/issues)
+[**Beta vormerken**](https://www.m-strasser.at/msistudio) • [**Dokumentation**](https://www.m-strasser.at/msistudio) • [**Fehler melden**](https://github.com/micstr76/Msistudio/issues)
 
 </div>
 
