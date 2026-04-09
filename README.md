@@ -12,7 +12,7 @@
 
 **Schluss mit XML-Gefummel! Erstelle professionelle MSI-Installer mit einer modernen GUI.**
 
-[**⬇️ Download**](https://github.com/micstr76/Msistudio/releases/latest) • [**🌐 Website**](https://www.m-strasser.at/msistudio) • [**🐛 Fehler melden**](https://github.com/micstr76/Msistudio/issues)
+[**⬇️ Download**](https://github.com/micstr76/Msistudio/releases/latest) • [**🌐 Website**](https://www.m-strasser.at/msistudio/msiStudio_index.html) • [**🐛 Fehler melden**](https://github.com/micstr76/Msistudio/issues)
 
 </div>
 
@@ -71,7 +71,7 @@ Das Projekt befindet sich aktuell in der **BETA-Phase** und wird aktiv weiterent
 
 ## 🤝 Kontakt & Support
 
-- 🌐 **Website:** [m-strasser.at/msistudio](https://www.m-strasser.at/msistudio)
+- 🌐 **Website:** [m-strasser.at/msistudio](https://www.m-strasser.at/msistudio/msiStudio_index.html)
 - 🐛 **Bugs:** [GitHub Issues](https://github.com/micstr76/Msistudio/issues)
 - 📧 **Lizenz & Support:** msistudio@m-strasser.at
 
