@@ -1,6 +1,6 @@
 <div align="center">
 
-# MsiStudio v6.0.0 🚀
+# MsiStudio v1.0.25 🚀
 
 ### Der moderne visuelle Editor für das WiX Toolset v6
 
