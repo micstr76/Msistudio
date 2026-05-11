@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
-  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.1.1/MsiStudio-Setup1.1.1.msi",
-  "releaseNotes": "Bug-Fix-Pass: 8 Bugs gefixt inkl. UI-Freeze bei grossen Source-Ordnern (~17.500x Speedup), korrekte Behandlung von Version-Suffixen wie 1.0.0-beta, XML-Escaping fuer Sonderzeichen, drittes Install-Target ProgramData, und WiX-Version-Limit-Warnings. Vollstaendige Details: https://github.com/micstr76/Msistudio/releases/tag/v1.1.1"
+  "version": "1.1.2",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.1.2/MsiStudio-Setup1.1.2.msi",
+  "releaseNotes": "Hotfix: Update-Mechanismus repariert. Update von v1.1.1 auf v1.1.2 verlaeuft jetzt automatisch ohne Maintenance-Dialog. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.1.2"
 }
