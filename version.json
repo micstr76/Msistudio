@@ -1,5 +1,5 @@
 {
-  "version": "1.1.2",
-  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.1.2/MsiStudio-Setup1.1.2.msi",
-  "releaseNotes": "Hotfix: Update-Mechanismus repariert. Update von v1.1.1 auf v1.1.2 verlaeuft jetzt automatisch ohne Maintenance-Dialog. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.1.2"
+  "version": "1.2.0",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.2.0/MsiStudio-Setup1.2.0.msi",
+  "releaseNotes": "Major-Release v1.2.0 - neue Intune-Pipeline! Neuer Deployment-Tab erzeugt .intunewin-Pakete direkt aus MSIs und .adtproj-Dateien fuer Uebergabe an AdtSuite. Bugfixes: Build-Workflow + KEYSDAT. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.2.0"
 }
