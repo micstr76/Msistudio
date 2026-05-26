@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
-  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.2.0/MsiStudio-Setup1.2.0.msi",
-  "releaseNotes": "Major-Release v1.2.0 - neue Intune-Pipeline! Neuer Deployment-Tab erzeugt .intunewin-Pakete direkt aus MSIs und .adtproj-Dateien fuer Uebergabe an AdtSuite. Bugfixes: Build-Workflow + KEYSDAT. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.2.0"
+  "version": "1.2.1",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.2.1/MsiStudio-Setup1.2.1.msi",
+  "releaseNotes": "Patch-Release v1.2.1 - Installer-Fixes: fehlende Laufzeit-DLLs ergaenzt (App startet jetzt sauber), x64 fixiert (kein Program Files (x86) mehr), Mehrfach-Installationen verhindert. Neu: Bootstrapper-EXE mit .NET-9-Pruefung. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.2.1"
 }
