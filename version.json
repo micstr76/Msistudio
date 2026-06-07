@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
-  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.2.2/MsiStudio-Setup1.2.2.msi",
-  "releaseNotes": "v1.2.2 - Neu: CAB-Splitting fuer grosse Pakete (Pro). Verbessert: dynamischer Versionskommentar in generierten WXS-Dateien. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.2.2"
+  "version": "1.2.3",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.2.3/MsiStudio-Setup1.2.3.msi",
+  "releaseNotes": "v1.2.3 - Neu (Pro): Mehrere Desktop- und Startmenue-Verknuepfungen pro Installer. Neuer 'Erweitert...'-Button neben der Desktop-Checkbox oeffnet einen Editor-Dialog mit eigener Liste, Targets, Argumenten und Icons. Fuer Free/Standard aendert sich nichts. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.2.3"
 }
