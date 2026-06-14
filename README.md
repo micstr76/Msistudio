@@ -1,13 +1,13 @@
 <div align="center">
 
-# MsiStudio v1.2.3 🚀
+# MsiStudio v1.2.4 🚀
 
 ### Der moderne visuelle Editor für das WiX Toolset v6
 
 ![Status](https://img.shields.io/badge/Status-BETA-orange?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows)
 ![Engine](https://img.shields.io/badge/Engine-WiX_v6-blueviolet?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-1.2.3-gold?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.2.4-gold?style=for-the-badge)
 ![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=for-the-badge)
 
 **Schluss mit XML-Gefummel! Erstelle professionelle MSI-Installer mit einer modernen GUI.**
