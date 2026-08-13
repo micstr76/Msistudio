@@ -1,13 +1,13 @@
 <div align="center">
 
-# MsiStudio v1.2.4 🚀
+# MsiStudio v1.4.0 🚀
 
 ### Der moderne visuelle Editor für das WiX Toolset v6
 
 ![Status](https://img.shields.io/badge/Status-BETA-orange?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows)
 ![Engine](https://img.shields.io/badge/Engine-WiX_v6-blueviolet?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-1.2.4-gold?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.4.0-gold?style=for-the-badge)
 ![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=for-the-badge)
 
 **Schluss mit XML-Gefummel! Erstelle professionelle MSI-Installer mit einer modernen GUI.**
@@ -44,6 +44,9 @@ Als IT-Systemadministrator verbringt man oft zu viel Zeit mit manuellem XML-Code
 | **Batch-Build** | Mehrere MSI-Projekte auf einmal bauen — ideal für CI/CD-Workflows. |
 | **Auto-Updater** | Neue Versionen werden automatisch heruntergeladen und installiert. |
 | **Dark/Light Themes** | 5 eingebaute Themes — inkl. Dark Gold, Midnight Blue und mehr. |
+| **Bundle-Builder** | Mehrere MSI/EXE zu einem Burn-Bootstrapper bündeln — mit Properties, Transforms und eigenem Logo je Paket. |
+| **MST-Transforms** | Verknüpfungen anlegen oder deaktivieren, Properties setzen — und ein Betrachter, der zeigt was eine bestehende Transform ändert. |
+| **Zweisprachig** | Vollständig auf Deutsch und Englisch, per Klick umschaltbar. |
 
 ---
 
@@ -80,5 +83,5 @@ Entwickelt von **Michael Strasser** — Direkt aus der Praxis für die Praxis.
 ---
 
 <div align="center">
-<sub>© 2025–2026 Michael Strasser · MIT License · Made with ❤️ in Austria 🇦🇹</sub>
+<sub>© 2025–2026 Michael Strasser · Proprietär – alle Rechte vorbehalten · Made with ❤️ in Austria 🇦🇹</sub>
 </div>
