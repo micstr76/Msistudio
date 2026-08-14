@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
-  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.4.0/MsiStudio-Setup1.4.0.msi",
-  "releaseNotes": "v1.4.0 - Bundle-Tab deutlich ausgebaut: MSI-Properties je Paket, MST-Transform-Zuweisung, eigenes Logo fuer die Setup-Oberflaeche, Paketnamen direkt aus der MSI. Die erzeugte bundle.wxs laesst sich jetzt wieder importieren. Neu im MST-Bereich: Desktop- und Startmenue-Verknuepfungen anlegen (mit Icon), bestehende bearbeiten, und ein Betrachter, der zeigt was eine vorhandene Transform an der MSI aendert. Das Deaktivieren von Verknuepfungen wirkt jetzt auch bei Fremdpaketen. MsiStudio spricht ausserdem vollstaendig Englisch und bringt Tastenkuerzel fuer die Hauptaktionen mit. Dazu 16 Bugfixes. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.4.0"
+  "version": "1.5.0",
+  "downloadUrl": "https://github.com/micstr76/Msistudio/releases/download/v1.5.0/MsiStudio-Setup1.5.0.msi",
+  "releaseNotes": "v1.5.0 - Bestehende MST-Transforms lassen sich jetzt bearbeiten: eine vorhandene .mst als Vorlage laden, anpassen und neu erzeugen. Was MsiStudio selbst nicht darstellt - Registry-Eintraege, Komponenten, Features - bleibt dabei unveraendert erhalten. Einzelne Aenderungen der Vorlage lassen sich gezielt zuruecknehmen. Die Einstellungen sind in einen Projekt- und einen Anwendungsteil getrennt: Ein exportiertes Profil enthaelt nur noch Paket- und Signierungsdaten und bringt keine fremden Werkzeugpfade mehr mit. Behoben: Der Welcome-Dialog erschien trotz 'nicht mehr anzeigen' bei jedem Start. Details: https://github.com/micstr76/Msistudio/releases/tag/v1.5.0"
 }
