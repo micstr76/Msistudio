@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MsiStudio — MSI-Pakete, Bundles und MST-Transforms erzeugen</title>
+  <meta name="description" content="MsiStudio erzeugt MSI-Pakete aus einem Ordner, verpackt EXE-Installer, baut Bundles aus mehreren MSIs und bearbeitet MST-Transforms — mit WPF-Oberfläche, ohne WiX-XML von Hand zu schreiben.">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0D1117;
+      --surface:   #161B22;
+      --border:    #30363D;
+      --gold:      #BF953F;
+      --gold-soft: #FCF6BA;
+      --gold-dim:  #A0906A;
+      --fg:        #E6EDF3;
+      --fg-dim:    #7D8590;
+      --accent:    #60C8D8;
+      --shadow:    0 20px 60px rgba(0,0,0,0.45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: #0D1117; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(ellipse at top, #1a2332 0%, var(--bg) 60%);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    code, pre { font-family: 'JetBrains Mono', Consolas, monospace; }
+
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid rgba(191,149,63,0.15); }
+
+    /* ─── Header / Hero ───────────────────────────────────────── */
+    header {
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+    .icon-frame {
+      width: 144px; height: 144px;
+      border-radius: 28px;
+      background: var(--surface);
+      border: 2px solid var(--gold);
+      box-shadow: var(--shadow);
+      margin: 0 auto 32px;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s ease;
+    }
+    .icon-frame:hover { transform: translateY(-4px); }
+    .icon-frame img { width: 132px; height: 132px; border-radius: 22px; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--fg-dim);
+      font-size: 1rem;
+      max-width: 660px;
+      margin: 16px auto 0;
+    }
+    .version-badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(191,149,63,0.10);
+      border: 1px solid rgba(191,149,63,0.40);
+      color: var(--gold-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── CTA-Buttons ─────────────────────────────────────────── */
+    .cta-row {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #D4A843 100%);
+      color: #1A2535;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(191,149,63,0.35);
+    }
+    .btn-secondary {
+      background: rgba(191,149,63,0.10);
+      color: var(--gold-soft);
+      border-color: rgba(191,149,63,0.40);
+    }
+    .btn-secondary:hover {
+      background: rgba(191,149,63,0.20);
+    }
+    .license-note {
+      max-width: 620px;
+      margin: 20px auto 0;
+      font-size: 0.85rem;
+      color: var(--fg-dim);
+    }
+    .license-note a { color: var(--gold-dim); }
+
+    /* ─── Section-Titel ───────────────────────────────────────── */
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--gold-soft);
+      margin-bottom: 12px;
+    }
+    h2::before {
+      content: ''; display: inline-block;
+      width: 4px; height: 28px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-right: 14px;
+      vertical-align: -6px;
+    }
+    .section-lead {
+      color: var(--fg-dim);
+      margin-bottom: 40px;
+      max-width: 720px;
+    }
+
+    /* ─── Feature-Grid ────────────────────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.2s ease;
+    }
+    .feature:hover {
+      border-color: rgba(191,149,63,0.50);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .feature h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gold-soft);
+      margin-bottom: 8px;
+    }
+    .feature p {
+      color: var(--fg-dim);
+      font-size: 0.92rem;
+    }
+    .feature .tag {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(96,200,216,0.10);
+      border: 1px solid rgba(96,200,216,0.30);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* ─── Ablauf ──────────────────────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      counter-reset: step;
+    }
+    .step {
+      padding: 20px 24px;
+      border-left: 2px solid rgba(191,149,63,0.35);
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .step h3 { font-size: 1rem; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+    .step p  { color: var(--fg-dim); font-size: 0.9rem; }
+
+    /* ─── Code-Zeile ──────────────────────────────────────────── */
+    .code {
+      background: #0B0E13;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 20px;
+      font-size: 0.86rem;
+      color: var(--accent);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    /* ─── Tech-Stack-Pills ────────────────────────────────────── */
+    .stack {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 12px;
+    }
+    .pill {
+      padding: 4px 12px;
+      background: rgba(96,200,216,0.10);
+      border: 1px solid rgba(96,200,216,0.30);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--fg-dim);
+      font-size: 0.88rem;
+      border-top: 1px solid rgba(191,149,63,0.15);
+    }
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 12px;
+    }
+    footer a:hover {
+      color: var(--gold-soft);
+      text-decoration: underline;
+    }
+    .footer-row { margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="icon-frame">
+      <img src="assets/icon.png" alt="MsiStudio Icon">
+    </div>
+    <h1>MsiStudio</h1>
+    <div class="tagline">MSI-Pakete, Bundles und Transforms &mdash; ohne XML von Hand</div>
+    <p class="subtitle">
+      WPF-Desktop-Anwendung, die aus einem Ordner ein fertiges <strong>MSI-Paket</strong> baut,
+      EXE-Installer verpackt, mehrere MSIs zu einer <strong>setup.exe</strong> verkettet und
+      <strong>MST-Transforms</strong> erzeugt, ansieht und bearbeitet.
+    </p>
+
+    <div class="version-badge">Version 1.5.0 &middot; Windows &middot; .NET 9</div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/micstr76/Msistudio/releases/latest">
+        ⬇ Neueste Version herunterladen
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/micstr76/Msistudio/issues/new/choose">
+        🐞 Bug oder Feature melden
+      </a>
+    </div>
+
+    <p class="license-note">
+      Frei nutzbar in vollem Funktionsumfang der Free-Edition &mdash; einzelne Funktionen sind
+      <strong>Pro</strong> oder <strong>Enterprise</strong> vorbehalten und in der App als solche
+      gekennzeichnet. Es gilt die
+      <a href="https://github.com/micstr76/Msistudio/blob/main/LICENSE">Lizenzvereinbarung</a>;
+      die <em>erzeugten</em> Pakete gehören uneingeschränkt dir.
+    </p>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Was kann MsiStudio?</h2>
+    <p class="section-lead">
+      Vom einzelnen Paket bis zur Transform für ein fremdes Installationspaket &mdash;
+      alles in einer Oberfläche, ohne Werkzeugwechsel.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">📦</span>
+        <h3>MSI aus einem Ordner</h3>
+        <p>Quellordner wählen, Name, Version und Hersteller eintragen &mdash; fertig ist die WXS
+        und daraus die MSI. Verknüpfungen, Installationspfad und ARP-Einträge über die
+        Oberfläche statt über XML.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🎁</span>
+        <h3>EXE in MSI verpacken</h3>
+        <p>Ein Setup, das nur als EXE vorliegt, wird zum MSI-Paket &mdash; mit Silent-Parametern,
+        Deinstallations-Parametern und optionaler Zusatzdatei. Für Verteilwege, die eine MSI
+        verlangen.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🔗</span>
+        <h3>Bundle aus mehreren MSIs</h3>
+        <p>Mehrere Pakete zu einer <code>setup.exe</code> verketten, mit Voraussetzungen wie
+        .NET-Runtimes. Je Paket eigene Properties, eine MST-Transform und die Entscheidung
+        „für alle Benutzer&ldquo;. Eigenes Logo für die Setup-Oberfläche.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🔧</span>
+        <h3>MST-Transforms</h3>
+        <p>Fremde Pakete anpassen, ohne sie neu zu bauen: Installationspfad, Eigenschaften,
+        ARP-Schalter. Eine vorhandene Transform lässt sich <strong>ansehen, als Vorlage laden
+        und bearbeiten</strong> &mdash; alles, was MsiStudio nicht darstellt, bleibt dabei erhalten.</p>
+        <span class="tag">Pro</span>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🗄</span>
+        <h3>Registry und Dienste</h3>
+        <p>Registry-Einträge anlegen &mdash; von Hand, aus einer <code>.reg</code>-Datei oder direkt
+        aus der laufenden Registry. Windows-Dienste mitinstallieren. Per Transform lassen sich
+        auch Einträge eines Fremdpakets wieder entfernen.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">⚙️</span>
+        <h3>Stapelverarbeitung</h3>
+        <p>Viele Pakete nacheinander erzeugen, mit CSV-Import und -Export der Paketliste.
+        Für den Fall, dass ein ganzer Anwendungskatalog neu paketiert werden muss.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🚀</span>
+        <h3>Intune und AdtSuite</h3>
+        <p>Aus einer fertigen MSI direkt eine <code>.intunewin</code>-Datei für den Upload ins
+        Intune-Portal erzeugen &mdash; oder eine Übergabedatei für die
+        <a href="https://micstr76.github.io/AdtSuite/" style="color:var(--accent);">AdtSuite</a>
+        schreiben, wenn PSADT-Wrapping folgt.</p>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">✍️</span>
+        <h3>Signierung</h3>
+        <p>PFX-Zertifikat, Zeitstempel-Server und Beschreibung hinterlegen &mdash; auf Wunsch
+        wird jedes erzeugte Paket direkt nach dem Bauen signiert.</p>
+        <span class="tag">Pro</span>
+      </div>
+
+      <div class="feature">
+        <span class="feature-icon">🌍</span>
+        <h3>Zweisprachig, fünf Themes</h3>
+        <p>Vollständige deutsche und englische Oberfläche mit Umschaltung im laufenden Betrieb,
+        über 1.000 Texte je Sprache. Dazu fünf Farbschemata von Dark&nbsp;Gold bis Light&nbsp;Neutral
+        und ein Update-Hinweis beim Start.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ablauf">
+  <div class="wrap">
+    <h2>In vier Schritten zum Paket</h2>
+    <p class="section-lead">
+      Kein Projekt anlegen, keine Vorlage suchen &mdash; die Oberfläche führt vom Ordner zur
+      fertigen Datei.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <h3>Quelle wählen</h3>
+        <p>Ordner, EXE-Installer oder bestehende MSI &mdash; je nach Arbeitsbereich.</p>
+      </div>
+      <div class="step">
+        <h3>Angaben ergänzen</h3>
+        <p>Name, Version, Hersteller. Verknüpfungen, Registry und Dienste nach Bedarf.</p>
+      </div>
+      <div class="step">
+        <h3>Vorschau prüfen</h3>
+        <p>Die erzeugte WXS steht mit Syntaxhervorhebung daneben, bevor gebaut wird.</p>
+      </div>
+      <div class="step">
+        <h3>Bauen und verteilen</h3>
+        <p>MSI, <code>setup.exe</code> oder <code>.mst</code> &mdash; samt fertigem Befehl zum Kopieren.</p>
+      </div>
+    </div>
+
+    <div class="code">
+      msiexec /i "LibreOffice_26.2.5_Win_x86-64.msi" TRANSFORMS=":1031;Kunde.mst" /qn
+    </div>
+    <p class="section-lead" style="margin-top:10px; margin-bottom:0; font-size:0.86rem;">
+      Der Deployment-Befehl wird mitgeliefert &mdash; bei mehrsprachigen Paketen inklusive der
+      eingebetteten Sprach-Transform.
+    </p>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap">
+    <h2>Tech-Stack</h2>
+    <p class="section-lead">
+      Kein eigener Installer-Motor: MsiStudio nutzt die Werkzeuge, die Microsoft und das
+      WiX-Projekt ohnehin bereitstellen.
+    </p>
+    <div class="stack">
+      <span class="pill">.NET 9</span>
+      <span class="pill">WPF</span>
+      <span class="pill">MVVM</span>
+      <span class="pill">C# 13</span>
+      <span class="pill">WiX Toolset v6</span>
+      <span class="pill">Burn-Bundles</span>
+      <span class="pill">Windows Installer COM-API</span>
+      <span class="pill">System.Text.Json</span>
+      <span class="pill">IntuneWinAppUtil</span>
+      <span class="pill">signtool</span>
+    </div>
+  </div>
+</section>
+
+<section id="links">
+  <div class="wrap">
+    <h2>Mehr</h2>
+    <div class="features">
+      <div class="feature">
+        <span class="feature-icon">📥</span>
+        <h3>Releases</h3>
+        <p style="margin-bottom:12px;">Alle Setup-Pakete und Release-Notes auf GitHub.</p>
+        <a class="btn btn-secondary" href="https://github.com/micstr76/Msistudio/releases">Zum Releases-Tab</a>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">💬</span>
+        <h3>Issues</h3>
+        <p style="margin-bottom:12px;">Bug-Reports und Feature-Requests willkommen.</p>
+        <a class="btn btn-secondary" href="https://github.com/micstr76/Msistudio/issues">Issues öffnen</a>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">📋</span>
+        <h3>Änderungen</h3>
+        <p style="margin-bottom:12px;">Was in welcher Version dazugekommen ist.</p>
+        <a class="btn btn-secondary" href="https://github.com/micstr76/Msistudio/releases">Release-Notes lesen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-row">
+    <a href="https://github.com/micstr76/Msistudio">GitHub</a> &middot;
+    <a href="https://github.com/micstr76/Msistudio/blob/main/LICENSE">Nutzungsbedingungen</a> &middot;
+    <a href="https://micstr76.github.io/AdtSuite/">AdtSuite</a>
+  </div>
+  <div>© 2026 Michael Strasser · Built with .NET 9 &amp; WPF</div>
+</footer>
+
+</body>
+</html>
